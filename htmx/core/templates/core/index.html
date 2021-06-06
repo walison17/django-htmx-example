@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1"
+    >
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+      crossorigin="anonymous"
+    >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
+    <title>Músicas</title>
+  </head>
+  <body>
+    <div class="container">
+      <form>
+        <div class="row my-3 align-items-center">
+          <div class="col-auto">
+            <input
+              type="text"
+              hx-get="/"
+              hx-target="#songs"
+              hx-trigger="keyup delay:500ms"
+              hx-push-url="true"
+              class="form-control"
+              name="q"
+              id="search"
+              placeholder="digite para buscar"
+            >
+          </div>
+        </div>
+        <div id="songs">
+        {% include 'core/fragments/table.html' with page_obj=page_obj %}
+        </div>
+      </form>
+    </div>
+    <script src="https://unpkg.com/htmx.org@1.4.1"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"
+      integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

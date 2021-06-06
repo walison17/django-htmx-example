@@ -1,0 +1,79 @@
+{% load core_extras %}
+
+<table class="table table-striped table-hovered">
+  <thead>
+    <th scope="col">
+      <a
+        href="#"
+        hx-get="?{% order_querystring order_option 'name' %}"
+        hx-push-url="true"
+        hx-target="#songs"
+      >Nome <i class="bi bi-sort-{% if order_option.field == 'name' and order_option.direction == 'asc' %}up{% else %}down{% endif %}-alt"></i></a>
+    </th>
+    <th scope="col">
+      <a
+        href="#"
+        hx-get="?{% order_querystring order_option 'artist__name' %}"
+        hx-push-url="true"
+        hx-target="#songs"
+      >Artista <i class="bi bi-sort-{% if order_option.field == 'artist__name' and order_option.direction == 'asc' %}up{% else %}down{% endif %}-alt"></i></a>
+    </th>
+    <th scope="col">
+      <a
+        href="#"
+        hx-get="?{% order_querystring order_option 'release_year' %}"
+        hx-push-url="true"
+        hx-target="#songs"
+      >Ano de lançamento <i class="bi bi-sort-{% if order_option.field == 'release_year' and order_option.direction == 'asc' %}up{% else %}down{% endif %}-alt"></i></a>
+    </th>
+  </thead>
+  <tbody>
+    {% for s in page_obj.object_list %}
+    <tr>
+      <td>{{ s }}</td>
+      <td>{{ s.artist }}</td>
+      <td>{{ s.release_year|default_if_none:'-' }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<div class="row align-items-center">
+  <div class="col-6">
+    <p class="text-muted">Exibindo {{ page_obj.start_index }} até {{ page_obj.end_index }} de {{ page_obj.paginator.count }} resultados</p>
+  </div>
+  <div class="col-6">
+    <div class="row justify-content-end">
+      <div class="col-auto">
+        <select name="size" class="form-select" hx-push-url="true" hx-get="?{% merge_querystring exclude_param='size' %}" hx-target="#songs">
+          {% for i in '15,50,100'|split_numbers %}
+            <option value="{{ i }}"{% if page_obj.paginator.per_page == i %}selected{% endif %}>{{ i }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-auto">
+        <nav>
+          <ul class="pagination">
+            {% for p in page_range %}
+                {% if p == page_obj.paginator.ELLIPSIS %}
+                <li class="page-item disabled">
+                    <span class="page-link">...</span>
+                </li>
+                {% else %}
+                <li class="page-item{% if page_obj.number == p %} active{% endif %}">
+                    <a
+                      class="page-link"
+                      href="?page={{ p }}"
+                      hx-get="?{% merge_querystring page=p %}"
+                      hx-trigger="click"
+                      hx-target="#songs"
+                      hx-push-url="true"
+                    >{{ p }}</a>
+                </li>
+                {% endif %}
+            {% endfor %}
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
