@@ -8,7 +8,7 @@
         hx-get="?{% order_querystring order_option 'name' %}"
         hx-push-url="true"
         hx-target="#songs"
-      >Nome <i class="bi bi-sort-{% if order_option.field == 'name' and order_option.direction == 'asc' %}up{% else %}down{% endif %}-alt"></i></a>
+      >Nome {% order_icon order_option 'name' %}</a>
     </th>
     <th scope="col">
       <a
@@ -16,7 +16,7 @@
         hx-get="?{% order_querystring order_option 'artist__name' %}"
         hx-push-url="true"
         hx-target="#songs"
-      >Artista <i class="bi bi-sort-{% if order_option.field == 'artist__name' and order_option.direction == 'asc' %}up{% else %}down{% endif %}-alt"></i></a>
+      >Artista {% order_icon order_option 'artist__name' %}</a>
     </th>
     <th scope="col">
       <a
@@ -24,7 +24,7 @@
         hx-get="?{% order_querystring order_option 'release_year' %}"
         hx-push-url="true"
         hx-target="#songs"
-      >Ano de lançamento <i class="bi bi-sort-{% if order_option.field == 'release_year' and order_option.direction == 'asc' %}up{% else %}down{% endif %}-alt"></i></a>
+      >Ano de lançamento {% order_icon order_option 'release_year' %}</a>
     </th>
   </thead>
   <tbody>
